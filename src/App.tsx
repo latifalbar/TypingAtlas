@@ -345,7 +345,6 @@ function App() {
       restartKeyDeadline.current = null
       completedSignature.current = null
       setLastCompletedAttempt(null)
-      setDrillSeed(createRandomSeed())
       setSessionPerformance([])
       performanceSampleBucket.current = null
       setClockNow(Date.now())
@@ -556,6 +555,7 @@ function App() {
     restartKeyCount.current = 0
     restartKeyDeadline.current = null
     completedSignature.current = null
+    setDrillSeed(createRandomSeed())
     setDraft('')
     setStartedAt(null)
     setNotice('Drill restarted.')
@@ -581,6 +581,7 @@ function App() {
   }
 
   const navigateToDrill = (layoutId: string, groupId: string) => {
+    setDrillSeed(createRandomSeed())
     setRoute({ screen: 'drill', layoutId, groupId })
     window.location.hash = toDrillUrl(layoutId, groupId)
     scrollToTop()
