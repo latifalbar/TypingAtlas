@@ -104,9 +104,9 @@ const parseRoute = (): AppRoute => {
   }
 }
 
-const toLayoutUrl = (layoutId: string) => `#/layout/${layoutId}`
+const toLayoutUrl = (layoutId: string) => `#layout/${layoutId}`
 const toDrillUrl = (layoutId: string, groupId: string) =>
-  `#/drill/${layoutId}/${encodeURIComponent(groupId)}`
+  `#drill/${layoutId}/${encodeURIComponent(groupId)}`
 
 const scrollToTop = () => {
   if (typeof window === 'undefined') {
@@ -709,7 +709,7 @@ function App() {
             className="link-button"
             onClick={() => {
               setRoute({ screen: 'menu' })
-              window.location.hash = '#/menu'
+              window.location.hash = '#menu'
             }}
           >
             ← Back to layouts
