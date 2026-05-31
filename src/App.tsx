@@ -303,8 +303,15 @@ function App() {
     syncRoute()
     window.addEventListener('hashchange', syncRoute)
 
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+
     return () => {
       window.removeEventListener('hashchange', syncRoute)
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto'
+      }
     }
   }, [])
 
@@ -314,8 +321,6 @@ function App() {
       resetFrame.current = null
     }
 
-    scrollToTop()
-
     if (route.screen !== 'drill') {
       if (restartTimer.current !== null) {
         window.clearTimeout(restartTimer.current)
@@ -323,6 +328,7 @@ function App() {
       }
 
       resetFrame.current = window.requestAnimationFrame(() => {
+        scrollToTop()
         restartKeyCount.current = 0
         restartKeyDeadline.current = null
         completedSignature.current = null
@@ -338,6 +344,7 @@ function App() {
     }
 
     resetFrame.current = window.requestAnimationFrame(() => {
+      scrollToTop()
       setDraft('')
       setStartedAt(null)
       setNotice(null)
