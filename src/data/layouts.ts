@@ -1,0 +1,341 @@
+export type LayoutDirection = 'ltr' | 'rtl'
+
+export type LayoutKey = {
+  code: string
+  label: string
+  width?: number
+}
+
+export type KeyboardLayout = {
+  id: string
+  name: string
+  locale: string
+  direction: LayoutDirection
+  description: string
+  rows: LayoutKey[][]
+  handSplitAfter?: [number, number, number]
+  practicePath: string[]
+}
+
+const makeIndex = (rows: LayoutKey[][]) => {
+  const labelToCode = new Map<string, string>()
+
+  for (const row of rows) {
+    for (const key of row) {
+      labelToCode.set(key.label, key.code)
+    }
+  }
+
+  return labelToCode
+}
+
+export const layouts: KeyboardLayout[] = [
+  {
+    id: 'ar-windows-101',
+    name: 'Arabic (101)',
+    locale: 'ar',
+    direction: 'rtl',
+    description:
+      'Common Arabic layout on Windows with letter mappings for standard ANSI/ISO physical keyboards.',
+    rows: [
+      [
+        { code: 'Backquote', label: 'ذ', width: 1.15 },
+        { code: 'Digit1', label: '1' },
+        { code: 'Digit2', label: '2' },
+        { code: 'Digit3', label: '3' },
+        { code: 'Digit4', label: '4' },
+        { code: 'Digit5', label: '5' },
+        { code: 'Digit6', label: '6' },
+        { code: 'Digit7', label: '7' },
+        { code: 'Digit8', label: '8' },
+        { code: 'Digit9', label: '9' },
+        { code: 'Digit0', label: '0' },
+        { code: 'Minus', label: '-' },
+        { code: 'Equal', label: '=' },
+      ],
+      [
+        { code: 'KeyQ', label: 'ض' },
+        { code: 'KeyW', label: 'ص' },
+        { code: 'KeyE', label: 'ث' },
+        { code: 'KeyR', label: 'ق' },
+        { code: 'KeyT', label: 'ف' },
+        { code: 'KeyY', label: 'غ' },
+        { code: 'KeyU', label: 'ع' },
+        { code: 'KeyI', label: 'ه' },
+        { code: 'KeyO', label: 'خ' },
+        { code: 'KeyP', label: 'ح' },
+        { code: 'BracketLeft', label: 'ج' },
+        { code: 'BracketRight', label: 'د' },
+      ],
+      [
+        { code: 'KeyA', label: 'ش' },
+        { code: 'KeyS', label: 'س' },
+        { code: 'KeyD', label: 'ي' },
+        { code: 'KeyF', label: 'ب' },
+        { code: 'KeyG', label: 'ل' },
+        { code: 'KeyH', label: 'ا' },
+        { code: 'KeyJ', label: 'ت' },
+        { code: 'KeyK', label: 'ن' },
+        { code: 'KeyL', label: 'م' },
+        { code: 'Semicolon', label: 'ك' },
+        { code: 'Quote', label: 'ط' },
+        { code: 'Backslash', label: '\\', width: 1.35 },
+      ],
+      [
+        { code: 'KeyZ', label: 'ئ' },
+        { code: 'KeyX', label: 'ء' },
+        { code: 'KeyC', label: 'ؤ' },
+        { code: 'KeyV', label: 'ر' },
+        { code: 'KeyB', label: 'لا', width: 1.35 },
+        { code: 'KeyN', label: 'ى' },
+        { code: 'KeyM', label: 'ة' },
+        { code: 'Comma', label: 'و' },
+        { code: 'Period', label: 'ز' },
+        { code: 'Slash', label: 'ظ' },
+      ],
+      [{ code: 'Space', label: 'Space', width: 5.6 }],
+    ],
+    handSplitAfter: [5, 6, 5],
+    practicePath: [
+      'ذ',
+      'ض',
+      'ص',
+      'ث',
+      'ق',
+      'ف',
+      'غ',
+      'ع',
+      'ه',
+      'خ',
+      'ح',
+      'ج',
+      'د',
+      'ش',
+      'س',
+      'ي',
+      'ب',
+      'ل',
+      'ا',
+      'ت',
+      'ن',
+      'م',
+      'ك',
+      'ط',
+      'ئ',
+      'ء',
+      'ؤ',
+      'ر',
+      'ى',
+      'ة',
+      'و',
+      'ز',
+      'ظ',
+    ],
+  },
+  {
+    id: 'de-qwertz',
+    name: 'German (QWERTZ)',
+    locale: 'de',
+    direction: 'ltr',
+    description:
+      'Central European Latin layout commonly used for German, with Y and Z swapped.',
+    rows: [
+      [
+        { code: 'Backquote', label: '^', width: 1.1 },
+        { code: 'Digit1', label: '1' },
+        { code: 'Digit2', label: '2' },
+        { code: 'Digit3', label: '3' },
+        { code: 'Digit4', label: '4' },
+        { code: 'Digit5', label: '5' },
+        { code: 'Digit6', label: '6' },
+        { code: 'Digit7', label: '7' },
+        { code: 'Digit8', label: '8' },
+        { code: 'Digit9', label: '9' },
+        { code: 'Digit0', label: '0' },
+        { code: 'Minus', label: 'ß' },
+        { code: 'Equal', label: '´' },
+      ],
+      [
+        { code: 'KeyQ', label: 'q' },
+        { code: 'KeyW', label: 'w' },
+        { code: 'KeyE', label: 'e' },
+        { code: 'KeyR', label: 'r' },
+        { code: 'KeyT', label: 't' },
+        { code: 'KeyZ', label: 'z' },
+        { code: 'KeyU', label: 'u' },
+        { code: 'KeyI', label: 'i' },
+        { code: 'KeyO', label: 'o' },
+        { code: 'KeyP', label: 'p' },
+        { code: 'BracketLeft', label: 'ü' },
+        { code: 'BracketRight', label: '+' },
+      ],
+      [
+        { code: 'KeyA', label: 'a' },
+        { code: 'KeyS', label: 's' },
+        { code: 'KeyD', label: 'd' },
+        { code: 'KeyF', label: 'f' },
+        { code: 'KeyG', label: 'g' },
+        { code: 'KeyH', label: 'h' },
+        { code: 'KeyJ', label: 'j' },
+        { code: 'KeyK', label: 'k' },
+        { code: 'KeyL', label: 'l' },
+        { code: 'Semicolon', label: 'ö' },
+        { code: 'Quote', label: 'ä' },
+      ],
+      [
+        { code: 'KeyY', label: 'y' },
+        { code: 'KeyX', label: 'x' },
+        { code: 'KeyC', label: 'c' },
+        { code: 'KeyV', label: 'v' },
+        { code: 'KeyB', label: 'b' },
+        { code: 'KeyN', label: 'n' },
+        { code: 'KeyM', label: 'm' },
+        { code: 'Comma', label: ',' },
+        { code: 'Period', label: '.' },
+        { code: 'Slash', label: '-' },
+      ],
+      [{ code: 'Space', label: 'Space', width: 5.6 }],
+    ],
+    handSplitAfter: [5, 5, 5],
+    practicePath: [
+      'q',
+      'w',
+      'e',
+      'r',
+      't',
+      'z',
+      'u',
+      'i',
+      'o',
+      'p',
+      'a',
+      's',
+      'd',
+      'f',
+      'g',
+      'h',
+      'j',
+      'k',
+      'l',
+      'ö',
+      'ä',
+      'y',
+      'x',
+      'c',
+      'v',
+      'b',
+      'n',
+      'm',
+    ],
+  },
+  {
+    id: 'en-qwerty',
+    name: 'English (QWERTY)',
+    locale: 'en',
+    direction: 'ltr',
+    description:
+      'The most common baseline layout for typing Latin letters on many physical keyboards.',
+    rows: [
+      [
+        { code: 'Backquote', label: '`', width: 1.1 },
+        { code: 'Digit1', label: '1' },
+        { code: 'Digit2', label: '2' },
+        { code: 'Digit3', label: '3' },
+        { code: 'Digit4', label: '4' },
+        { code: 'Digit5', label: '5' },
+        { code: 'Digit6', label: '6' },
+        { code: 'Digit7', label: '7' },
+        { code: 'Digit8', label: '8' },
+        { code: 'Digit9', label: '9' },
+        { code: 'Digit0', label: '0' },
+        { code: 'Minus', label: '-' },
+        { code: 'Equal', label: '=' },
+      ],
+      [
+        { code: 'KeyQ', label: 'q' },
+        { code: 'KeyW', label: 'w' },
+        { code: 'KeyE', label: 'e' },
+        { code: 'KeyR', label: 'r' },
+        { code: 'KeyT', label: 't' },
+        { code: 'KeyY', label: 'y' },
+        { code: 'KeyU', label: 'u' },
+        { code: 'KeyI', label: 'i' },
+        { code: 'KeyO', label: 'o' },
+        { code: 'KeyP', label: 'p' },
+        { code: 'BracketLeft', label: '[' },
+        { code: 'BracketRight', label: ']' },
+      ],
+      [
+        { code: 'KeyA', label: 'a' },
+        { code: 'KeyS', label: 's' },
+        { code: 'KeyD', label: 'd' },
+        { code: 'KeyF', label: 'f' },
+        { code: 'KeyG', label: 'g' },
+        { code: 'KeyH', label: 'h' },
+        { code: 'KeyJ', label: 'j' },
+        { code: 'KeyK', label: 'k' },
+        { code: 'KeyL', label: 'l' },
+        { code: 'Semicolon', label: ';' },
+        { code: 'Quote', label: "'" },
+      ],
+      [
+        { code: 'KeyZ', label: 'z' },
+        { code: 'KeyX', label: 'x' },
+        { code: 'KeyC', label: 'c' },
+        { code: 'KeyV', label: 'v' },
+        { code: 'KeyB', label: 'b' },
+        { code: 'KeyN', label: 'n' },
+        { code: 'KeyM', label: 'm' },
+        { code: 'Comma', label: ',' },
+        { code: 'Period', label: '.' },
+        { code: 'Slash', label: '/' },
+      ],
+      [{ code: 'Space', label: 'Space', width: 5.6 }],
+    ],
+    handSplitAfter: [5, 5, 5],
+    practicePath: [
+      'q',
+      'w',
+      'e',
+      'r',
+      't',
+      'y',
+      'u',
+      'i',
+      'o',
+      'p',
+      'a',
+      's',
+      'd',
+      'f',
+      'g',
+      'h',
+      'j',
+      'k',
+      'l',
+      'z',
+      'x',
+      'c',
+      'v',
+      'b',
+      'n',
+      'm',
+    ],
+  },
+]
+
+export const layoutIndex = Object.fromEntries(
+  layouts.map((layout) => [
+    layout.id,
+    {
+      layout,
+      labelToCode: makeIndex(layout.rows),
+    },
+  ]),
+) as Record<
+  string,
+  {
+    layout: KeyboardLayout
+    labelToCode: Map<string, string>
+  }
+>
