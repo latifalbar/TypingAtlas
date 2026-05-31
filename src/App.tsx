@@ -116,43 +116,6 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
 }
 
-const HISTORY_STATE_KEY = 'typingAtlasRoute'
-
-type AppHistoryState = {
-  [HISTORY_STATE_KEY]: true
-  screen: AppRoute['screen']
-  layoutId?: string
-  groupId?: string
-}
-
-const writeHistoryState = (url: string, route: AppRoute, replace = false) => {
-  if (typeof window === 'undefined') {
-    return
-  }
-
-  const state: AppHistoryState = {
-    [HISTORY_STATE_KEY]: true,
-    screen: route.screen,
-    layoutId: 'layoutId' in route ? route.layoutId : undefined,
-    groupId: 'groupId' in route ? route.groupId : undefined,
-  }
-
-  if (replace) {
-    window.history.replaceState(state, '', url)
-    return
-  }
-
-  window.history.pushState(state, '', url)
-}
-
-const hasAppHistoryState = () => {
-  if (typeof window === 'undefined') {
-    return false
-  }
-
-  return Boolean((window.history.state as AppHistoryState | null | undefined)?.[HISTORY_STATE_KEY])
-}
-
 const mergeKeyLabels = (groups: { keyLabels: string[] }[]) => {
   const merged: string[] = []
   const seen = new Set<string>()
@@ -339,7 +302,6 @@ function App() {
     const syncRoute = () => setRoute(parseRoute())
     syncRoute()
     window.addEventListener('hashchange', syncRoute)
-    window.addEventListener('popstate', syncRoute)
 
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
@@ -347,24 +309,11 @@ function App() {
 
     return () => {
       window.removeEventListener('hashchange', syncRoute)
-      window.removeEventListener('popstate', syncRoute)
       if ('scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'auto'
       }
     }
   }, [])
-
-  useEffect(() => {
-    if (route.screen !== 'drill' || hasAppHistoryState()) {
-      return
-    }
-
-    const layoutUrl = toLayoutUrl(route.layoutId)
-    const drillUrl = toDrillUrl(route.layoutId, route.groupId)
-
-    writeHistoryState(layoutUrl, { screen: 'layout', layoutId: route.layoutId }, true)
-    writeHistoryState(drillUrl, route)
-  }, [route])
 
   useEffect(() => {
     if (resetFrame.current !== null) {
@@ -630,23 +579,23 @@ function App() {
 
   const goMenu = () => {
     const nextRoute: AppRoute = { screen: 'layout', layoutId: currentLayout.id }
-    writeHistoryState(toLayoutUrl(currentLayout.id), nextRoute)
     setRoute(nextRoute)
+    window.location.hash = toLayoutUrl(currentLayout.id)
     scrollToTop()
   }
 
   const navigateToLayout = (layoutId: string) => {
     const nextRoute: AppRoute = { screen: 'layout', layoutId }
-    writeHistoryState(toLayoutUrl(layoutId), nextRoute)
     setRoute(nextRoute)
+    window.location.hash = toLayoutUrl(layoutId)
     scrollToTop()
   }
 
   const navigateToDrill = (layoutId: string, groupId: string) => {
     setDrillSeed(createRandomSeed())
     const nextRoute: AppRoute = { screen: 'drill', layoutId, groupId }
-    writeHistoryState(toDrillUrl(layoutId, groupId), nextRoute)
     setRoute(nextRoute)
+    window.location.hash = toDrillUrl(layoutId, groupId)
     scrollToTop()
   }
 
@@ -772,8 +721,9 @@ function App() {
             className="link-button"
             onClick={() => {
               const nextRoute: AppRoute = { screen: 'menu' }
-              writeHistoryState('#menu', nextRoute)
               setRoute(nextRoute)
+              window.location.hash = '#menu'
+              scrollToTop()
             }}
           >
             ← Back to layouts
@@ -881,8 +831,8 @@ function App() {
             onClick={(event) => {
               event.preventDefault()
               const nextRoute: AppRoute = { screen: 'menu' }
-              writeHistoryState('#menu', nextRoute)
               setRoute(nextRoute)
+              window.location.hash = '#menu'
               scrollToTop()
             }}
           >
