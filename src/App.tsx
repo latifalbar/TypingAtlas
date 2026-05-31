@@ -108,6 +108,14 @@ const toLayoutUrl = (layoutId: string) => `#/layout/${layoutId}`
 const toDrillUrl = (layoutId: string, groupId: string) =>
   `#/drill/${layoutId}/${encodeURIComponent(groupId)}`
 
+const scrollToTop = () => {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+}
+
 const mergeKeyLabels = (groups: { keyLabels: string[] }[]) => {
   const merged: string[] = []
   const seen = new Set<string>()
@@ -305,6 +313,8 @@ function App() {
       window.cancelAnimationFrame(resetFrame.current)
       resetFrame.current = null
     }
+
+    scrollToTop()
 
     if (route.screen !== 'drill') {
       if (restartTimer.current !== null) {
@@ -561,16 +571,19 @@ function App() {
   const goMenu = () => {
     setRoute({ screen: 'layout', layoutId: currentLayout.id })
     window.location.hash = toLayoutUrl(currentLayout.id)
+    scrollToTop()
   }
 
   const navigateToLayout = (layoutId: string) => {
     setRoute({ screen: 'layout', layoutId })
     window.location.hash = toLayoutUrl(layoutId)
+    scrollToTop()
   }
 
   const navigateToDrill = (layoutId: string, groupId: string) => {
     setRoute({ screen: 'drill', layoutId, groupId })
     window.location.hash = toDrillUrl(layoutId, groupId)
+    scrollToTop()
   }
 
   if (route.screen === 'menu') {
@@ -804,6 +817,7 @@ function App() {
               event.preventDefault()
               setRoute({ screen: 'menu' })
               window.location.hash = '#menu'
+              scrollToTop()
             }}
           >
             Choose another layout
