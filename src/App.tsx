@@ -239,6 +239,28 @@ function App() {
   const latestPerformance = sessionPerformancePoints.at(-1) ?? null
   const hoveredPerformancePoint =
     hoveredPerformanceIndex !== null ? sessionPerformancePoints[hoveredPerformanceIndex] ?? null : null
+  const drillRows =
+    drill?.rowSegments ?? Array.from({ length: 10 }, () => Array.from({ length: ROW_LENGTH }, () => ''))
+  const activeKeyLabel = targetGraphemes[typedGraphemes.length] ?? ''
+  const currentGroup =
+    route.screen === 'drill'
+      ? practiceGroupsWithSides.find((entry) => entry.id === route.groupId) ?? practiceGroupsWithSides[0]
+      : practiceGroupsWithSides[0]
+  const displayDirection = currentLayout.direction
+  const showTypedRows = typedGraphemes.length > 0
+  const activeRowIndex = Math.min(drillRows.length - 1, Math.max(0, Math.floor(typedGraphemes.length / ROW_LENGTH)))
+
+  useLayoutEffect(() => {
+    if (route.screen !== 'drill') {
+      return
+    }
+
+    const activeRow = drillRowRefs.current[activeRowIndex]
+    activeRow?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    })
+  }, [activeRowIndex, route.screen, typedGraphemes.length])
 
   const finalizePerfectAttempt = (attempt: Attempt, signatureText: string) => {
     if (completedSignature.current === signatureText) {
@@ -733,14 +755,6 @@ function App() {
     )
   }
 
-  const drillRows =
-    drill?.rowSegments ?? Array.from({ length: 10 }, () => Array.from({ length: ROW_LENGTH }, () => ''))
-  const activeKeyLabel = targetGraphemes[typedGraphemes.length] ?? ''
-  const currentGroup = practiceGroupsWithSides.find((entry) => entry.id === route.groupId) ?? practiceGroupsWithSides[0]
-  const displayDirection = currentLayout.direction
-  const showTypedRows = typedGraphemes.length > 0
-  const activeRowIndex = Math.min(drillRows.length - 1, Math.max(0, Math.floor(typedGraphemes.length / ROW_LENGTH)))
-
   const rowGridStyle = (columns: number) =>
     ({ '--drill-columns': columns } as CSSProperties)
   const chartMaxY = Math.max(
@@ -806,18 +820,6 @@ function App() {
       .map((point) => `L ${point.x.toFixed(2)} ${point.y.toFixed(2)}`)
       .join(' ')} L ${lastPoint.x.toFixed(2)} ${innerHeight.toFixed(2)} Z`
   }
-
-  useLayoutEffect(() => {
-    if (route.screen !== 'drill') {
-      return
-    }
-
-    const activeRow = drillRowRefs.current[activeRowIndex]
-    activeRow?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    })
-  }, [activeRowIndex, route.screen, typedGraphemes.length])
 
   return (
     <main className="app-shell drill-shell" onClick={() => inputRef.current?.focus()}>
