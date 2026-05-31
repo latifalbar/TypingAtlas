@@ -131,6 +131,14 @@ npm run build
 3. Set **Source** to **GitHub Actions**.
 4. The workflow in `.github/workflows/deploy.yml` will build and deploy automatically on every push to `main`.
 
+## Acknowledgements
+
+Typing Atlas is inspired by the focused drill experience of
+[Steno Jig](https://github.com/JoshuaGrams/steno-jig) by Joshua Grams.
+
+Typing Atlas does not aim to be a steno trainer. It adapts the idea of
+minimal, repeatable keyboard drills for multilingual keyboard layout practice.
+
 ## Notes
 
 - This project is intentionally focused on practice, not on being a virtual keyboard.
