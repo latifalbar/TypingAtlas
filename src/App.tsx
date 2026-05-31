@@ -23,7 +23,7 @@ import {
   createGroupDrill,
   getNextExpectedCode,
 } from './lib/drill'
-import { formatDuration, formatNumber, formatPercent, segmentGraphemes, normalizeText } from './lib/unicode'
+import { formatDuration, formatNumber, formatPercent, segmentGraphemes } from './lib/unicode'
 
 type AppRoute =
   | { screen: 'menu'; layoutId?: string }
