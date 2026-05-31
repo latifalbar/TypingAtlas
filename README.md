@@ -42,6 +42,7 @@ Most typing tools assume a single Latin keyboard workflow. Typing Atlas is desig
 - Browser-only frontend
 - Layout selection and drill selection
 - Unicode-aware grapheme scoring
+- RTL layout support, currently demonstrated with Arabic (101)
 - Session performance charting
 - Public repo friendly structure
 
@@ -52,6 +53,8 @@ Current built-in layouts include:
 - Arabic (101)
 - German (QWERTZ)
 - English (QWERTY)
+
+Arabic (101) is included as the first right-to-left layout. It demonstrates RTL drill rendering, Arabic key labels, and hand split mapping for a common Arabic keyboard layout.
 
 More languages and keyboard layouts can be added over time. The app is designed so new layout packs can be contributed without rewriting the drill engine.
 
