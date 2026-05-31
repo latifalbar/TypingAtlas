@@ -36,6 +36,13 @@ npm run dev
 npm run build
 ```
 
+## Deploy to GitHub Pages
+
+1. Push changes to the `main` branch.
+2. In the GitHub repository, open **Settings → Pages**.
+3. Set **Source** to **GitHub Actions**.
+4. The workflow in `.github/workflows/deploy.yml` will build and deploy automatically on every push to `main`.
+
 ## Notes
 
 - This project is intentionally focused on practice, not on being a virtual keyboard.
