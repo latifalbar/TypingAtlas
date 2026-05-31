@@ -559,7 +559,18 @@ function App() {
   }
 
   const goMenu = () => {
+    setRoute({ screen: 'layout', layoutId: currentLayout.id })
     window.location.hash = toLayoutUrl(currentLayout.id)
+  }
+
+  const navigateToLayout = (layoutId: string) => {
+    setRoute({ screen: 'layout', layoutId })
+    window.location.hash = toLayoutUrl(layoutId)
+  }
+
+  const navigateToDrill = (layoutId: string, groupId: string) => {
+    setRoute({ screen: 'drill', layoutId, groupId })
+    window.location.hash = toDrillUrl(layoutId, groupId)
   }
 
   if (route.screen === 'menu') {
@@ -597,6 +608,10 @@ function App() {
               key={layout.id}
               href={toLayoutUrl(layout.id)}
               className={`layout-card${layout.id === currentLayout.id ? ' is-active' : ''}`}
+              onClick={(event) => {
+                event.preventDefault()
+                navigateToLayout(layout.id)
+              }}
             >
               <div className="layout-card-head">
                 <div>
@@ -633,6 +648,10 @@ function App() {
         key={group.id}
         className="practice-option practice-option-large"
         href={toDrillUrl(currentLayout.id, group.id)}
+        onClick={(event) => {
+          event.preventDefault()
+          navigateToDrill(currentLayout.id, group.id)
+        }}
       >
         <span className="practice-option-label">{group.label}</span>
         <span className="practice-option-desc">{group.description}</span>
@@ -671,9 +690,14 @@ function App() {
         </section>
 
         <div className="layout-actions">
-          <button type="button" className="link-button" onClick={() => {
-            window.location.hash = '#/menu'
-          }}>
+          <button
+            type="button"
+            className="link-button"
+            onClick={() => {
+              setRoute({ screen: 'menu' })
+              window.location.hash = '#/menu'
+            }}
+          >
             ← Back to layouts
           </button>
         </div>
@@ -776,7 +800,15 @@ function App() {
         <div className="drill-title">
           <h1>{currentGroup?.label ?? currentLayout.name}</h1>
           <p className="drill-subtitle">{currentLayout.name}</p>
-          <a className="guide-link" href="#menu">
+          <a
+            className="guide-link"
+            href="#menu"
+            onClick={(event) => {
+              event.preventDefault()
+              setRoute({ screen: 'menu' })
+              window.location.hash = '#menu'
+            }}
+          >
             Choose another layout
           </a>
         </div>
