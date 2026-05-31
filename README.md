@@ -2,6 +2,8 @@
 
 Multilingual keyboard drill lab for layouts, scripts, and muscle memory.
 
+[Open the app](https://latifalbar.github.io/TypingAtlas/)
+
 Typing Atlas is a browser-based practice app for learning keyboard layouts across languages and scripts. It focuses on structured drills, row-based practice, performance tracking, and Unicode-aware input handling so users can build reliable typing habits on a physical keyboard.
 
 ## What it is for
