@@ -199,12 +199,12 @@ function App() {
   const elapsedSeconds =
     startedAt === null ? 0 : Math.max(1, Math.floor((clockNow - startedAt) / 1000))
   const analysis = useMemo(() => {
-    if (route.screen !== 'drill' || !drill) {
+    if (route.screen !== 'drill') {
       return null
     }
 
-    return analyzeAttempt(currentLayout.id, drill.target, draft, elapsedSeconds)
-  }, [currentLayout.id, draft, drill, elapsedSeconds, route.screen])
+    return analyzeAttempt(currentLayout.id, drill?.target ?? '', draft, elapsedSeconds)
+  }, [currentLayout.id, draft, drill?.target, elapsedSeconds, route.screen])
 
   const summary = useMemo(() => summarizeProgress(progress.attempts), [progress.attempts])
   const isSessionComplete = Boolean(drill && typedGraphemes.length >= targetGraphemes.length)
@@ -705,11 +705,8 @@ function App() {
     )
   }
 
-  if (!drill || !analysis) {
-    return null
-  }
-
-  const drillRows = drill?.rowSegments ?? []
+  const drillRows =
+    drill?.rowSegments ?? Array.from({ length: 10 }, () => Array.from({ length: ROW_LENGTH }, () => ''))
   const activeKeyLabel = targetGraphemes[typedGraphemes.length] ?? ''
   const currentGroup = practiceGroupsWithSides.find((entry) => entry.id === route.groupId) ?? practiceGroupsWithSides[0]
   const displayDirection = currentLayout.direction
