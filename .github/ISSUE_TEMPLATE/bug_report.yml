@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a problem with drills, layout mapping, input handling, or performance charts
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly.
+      placeholder: "The drill does not advance when I type..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact route, layout, drill, and keys typed.
+      placeholder: |
+        1. Open #layout/ar-windows-101
+        2. Start Row 1, left
+        3. Type the highlighted character
+        4. Observe the result
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: "Chrome 125, Safari 18, Firefox 126"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "macOS, Windows, Linux"
+    validations:
+      required: true
+  - type: input
+    id: active-layout
+    attributes:
+      label: Active keyboard layout or IME
+      placeholder: "Arabic 101, Russian, German QWERTZ"
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Extra context
+      description: Add screenshots, console logs, or any other details.
+    validations:
+      required: false
+

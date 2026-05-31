@@ -1,0 +1,48 @@
+name: Keyboard layout request
+description: Request a new language or keyboard layout for Typing Atlas
+title: "Layout request: "
+labels: ["layout request"]
+body:
+  - type: input
+    id: layout-name
+    attributes:
+      label: Layout name
+      description: "Example: Hebrew Standard, French AZERTY, Hindi InScript"
+      placeholder: "Arabic 101"
+    validations:
+      required: true
+  - type: input
+    id: language
+    attributes:
+      label: Language or locale
+      description: "Example: Arabic, Hebrew, Russian, fr-FR"
+      placeholder: "Arabic"
+    validations:
+      required: true
+  - type: dropdown
+    id: direction
+    attributes:
+      label: Writing direction
+      options:
+        - Left-to-right
+        - Right-to-left
+        - Mixed or unsure
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: Layout reference
+      description: Link to OS documentation, CLDR data, keyboard diagram, or another reliable source.
+      placeholder: "Paste references here."
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Mention OS, IME behavior, dead keys, variants, or anything important for accurate drills.
+      placeholder: "This layout is used on Windows / macOS / Linux..."
+    validations:
+      required: false
+

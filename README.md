@@ -61,6 +61,27 @@ Russian (ЙЦУКЕН) is included as a Cyrillic layout for practicing the stand
 
 More languages and keyboard layouts can be added over time. The app is designed so new layout packs can be contributed without rewriting the drill engine.
 
+## Wanted layouts
+
+These are good candidates for community contributions:
+
+- Hebrew Standard
+- Persian
+- French AZERTY
+- Spanish Latin America
+- Hindi InScript
+- Thai Kedmanee
+- Japanese Kana
+- Turkish Q
+- Ukrainian
+- Greek
+
+Layout requests are welcome through GitHub issues. If you use a keyboard layout that is not listed yet, open a layout request with the language, operating system, and a reference for the key mapping.
+
+## Contributing
+
+The easiest way to help is to add or verify keyboard layout packs. See [CONTRIBUTING.md](CONTRIBUTING.md) for the layout checklist, hand split guidance, and pull request steps.
+
 ## Adding another language or layout
 
 New languages are added by defining a new layout entry in `src/data/layouts.ts`.
