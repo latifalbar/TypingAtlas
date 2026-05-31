@@ -53,8 +53,11 @@ Current built-in layouts include:
 - Arabic (101)
 - German (QWERTZ)
 - English (QWERTY)
+- Russian (ЙЦУКЕН)
 
 Arabic (101) is included as the first right-to-left layout. It demonstrates RTL drill rendering, Arabic key labels, and hand split mapping for a common Arabic keyboard layout.
+
+Russian (ЙЦУКЕН) is included as a Cyrillic layout for practicing the standard Russian keyboard arrangement on a physical QWERTY keyboard.
 
 More languages and keyboard layouts can be added over time. The app is designed so new layout packs can be contributed without rewriting the drill engine.
 
@@ -105,6 +108,8 @@ Typing Atlas uses hash routes so it can run reliably on GitHub Pages without a b
 - `#menu`
 - `#layout/ar-windows-101`
 - `#drill/ar-windows-101/row-1-left`
+- `#layout/ru-jcuken`
+- `#drill/ru-jcuken/row-1-left`
 
 ## Running locally
 
